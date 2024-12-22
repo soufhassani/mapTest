@@ -1,0 +1,54 @@
+.colorPickerContainer {
+  position: relative;
+  width: fit-content;
+}
+
+.colorPicker {
+  position: absolute;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 7px;
+  background-color: #fff;
+  bottom: calc(100% + 5px);
+  left: 0;
+  z-index: 999;
+}
+
+.inputContainer {
+  position: relative;
+  width: fit-content;
+}
+
+.colorInput {
+  height: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  outline: none;
+  font-size: 16px;
+  font-family: sans-serif;
+  text-indent: 5px;
+  min-width: 214px;
+}
+
+.colorTriggers {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  translate: 0% -50%;
+  height: 70%;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+.colorTriggers span {
+  width: 80%;
+  height: 80%;
+  border-radius: 6px;
+}
+
+.error {
+  color: red;
+}
