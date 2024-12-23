@@ -68,7 +68,7 @@ const Settings = () => {
           <ChangeMapTrackerThickness setNeedSave={setNeedSave} />
         </div>
       </div>
-
+      {/* didn't use form in here because there is need as long as i'm using controlled inputs */}
       <button
         className={isLoading || !needSave ? styles.ctaLoading : styles.cta}
         disabled={isLoading || !needSave}
