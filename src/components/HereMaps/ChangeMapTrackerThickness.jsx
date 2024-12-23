@@ -1,7 +1,7 @@
 import useMapControl from "../../store/useMapControl";
 import styles from "./styles.module.css";
 
-const ChangeMapTrackerThickness = () => {
+const ChangeMapTrackerThickness = ({ setNeedSave }) => {
   const trackThickness = useMapControl((state) => state.trackThickness);
   const setTrackThickness = useMapControl((state) => state.setTrackThickness);
 
@@ -11,9 +11,10 @@ const ChangeMapTrackerThickness = () => {
     if (value < 0 || value > 10) return;
 
     setTrackThickness(value);
+    setNeedSave(true);
   };
   return (
-    <div className={styles.trackColorChanger}>
+    <div className={styles.inputContainer}>
       <label htmlFor="tracker-thickness" className={styles.label}>
         Change Tracker Thickness
       </label>

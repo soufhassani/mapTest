@@ -1,0 +1,49 @@
+.settingsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 50px;
+}
+.settingsControl {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.controller {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cta,
+.ctaLoading {
+  min-height: 40px;
+  background-color: blue;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+.cta:hover {
+  opacity: 0.8;
+}
+
+.ctaLoading {
+  cursor: default;
+  background-color: gray;
+}
+.loader {
+  animation: rotating 1s linear infinite;
+}
+
+@keyframes rotating {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

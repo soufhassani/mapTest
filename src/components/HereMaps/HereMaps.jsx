@@ -1,17 +1,11 @@
-import "react";
 import { useEffect, useRef } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { MdDeliveryDining } from "react-icons/md";
-
 import convertComponentToMarkup from "../../utils/convertComponentToMarkup";
-import styles from "./styles.module.css";
 import useMapControl from "../../store/useMapControl";
+import styles from "./styles.module.css";
 
-const HereMaps = ({
-  pointA = { lat: 52.52, lng: 13.405 },
-  pointB = { lat: 52.515, lng: 13.402 },
-  isPreview = false,
-}) => {
+const HereMaps = ({ isPreview = false }) => {
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
   const markerARef = useRef(null);
@@ -32,8 +26,10 @@ const HereMaps = ({
   const startUpdating = useMapControl((state) => state.startUpdating);
   const setStartUpdating = useMapControl((state) => state.setStartUpdating);
 
+  const pointA = { lat: 52.52, lng: 13.405 };
+  const pointB = { lat: 52.515, lng: 13.402 };
+
   useEffect(() => {
-    console.log("h.window", window.H);
     const platform = new H.service.Platform({
       apikey: import.meta.env.VITE_HERE_MAP_KEY,
     });
@@ -56,10 +52,10 @@ const HereMaps = ({
     // Add interaction and controls
     const handleResizeMap = () => map.getViewPort().resize();
 
+    // handle Resize as said in the documentation
     window.addEventListener("resize", handleResizeMap);
 
     // Cleanup the map on component unmount
-
     return () => {
       map.dispose();
       window.removeEventListener("resize", handleResizeMap);
@@ -71,7 +67,7 @@ const HereMaps = ({
 
     const map = mapRef.current;
 
-    // Create icons
+    // Create icons by converting the component to HTML markup by the help of the function i've created
     const shippingSVGIcon = convertComponentToMarkup({
       Component: (
         <MdDeliveryDining color={isPreview ? brandColor : updatedBrandColor} />
@@ -108,7 +104,7 @@ const HereMaps = ({
     markerARef.current = markerA;
     markerBRef.current = markerB;
 
-    // Create polyline
+    // Create polyline as showed in the documentation, to be honest i tried to use route calculator as showed in the documentation but i get 403 response i think because it's not supported for freemium accounts
     const lineString = new H.geo.LineString();
     lineString.pushLatLngAlt(pointA.lat, pointA.lng);
     lineString.pushLatLngAlt(pointB.lat, pointB.lng);
@@ -128,14 +124,19 @@ const HereMaps = ({
       bounds: polyline.getBoundingBox(),
     });
 
+    // this line was added because i faced an issue that I still don't know why, that the initiation of the map instance with the zoom in the config isn't working, so i had to wait until the map is rendered then set the zoom manually
     map.setZoom(15);
   }, []);
 
+  // Updating part, this part will be taking care of the updating whether for live cart or the preview one.
+  // First useEffect will be responsible for updating Icons.
+  // Second useEffect will be responsible for updating TheTrack.
   useEffect(() => {
     if (!markerARef.current && !markerBRef.current) return;
 
-    if (!isPreview && !startUpdating) return;
-    else setStartUpdating(false);
+    if (!isPreview && !startUpdating)
+      return; // stop live cart from being updated.
+    else setStartUpdating(false); // after jumping the condition the startUpdate must be false so the next edit will not impact the live cart.
 
     const shippingSVGIcon = convertComponentToMarkup({
       Component: (

@@ -1,7 +1,7 @@
 import useMapControl from "../../store/useMapControl";
 import styles from "./styles.module.css";
 
-const ChangeMapIconSize = () => {
+const ChangeMapIconSize = ({ setNeedSave }) => {
   const iconSize = useMapControl((state) => state.iconSize);
   const setIconSize = useMapControl((state) => state.setIconSize);
 
@@ -10,15 +10,10 @@ const ChangeMapIconSize = () => {
 
     if (value < 0 || value > 100) return;
     setIconSize(value);
+    setNeedSave(true);
   };
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-      }}
-    >
+    <div className={styles.inputContainer}>
       <label htmlFor="icon-size" className={styles.label}>
         Change Icon Size
       </label>

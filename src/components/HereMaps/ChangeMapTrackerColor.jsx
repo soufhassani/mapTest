@@ -1,24 +1,18 @@
-import ColorPicker from "../ColorPicker";
+import ColorPicker from "../colorPicker/ColorPicker";
 import useMapControl from "../../store/useMapControl";
 import styles from "./styles.module.css";
 
-const ChangeMapTrackerColor = () => {
-  // const brandColor = useMapControl((state) => state.brandColor);
-  // const setBrandColor = useMapControl((state) => state.setBrandColor);
+const ChangeMapTrackerColor = ({ setNeedSave }) => {
   const trackColor = useMapControl((state) => state.trackColor);
   const setTrackColor = useMapControl((state) => state.setTrackColor);
 
-  const handleChangeTrackColor = (color) => setTrackColor(color);
+  const handleChangeTrackColor = (color) => {
+    setTrackColor(color);
+    setNeedSave(true);
+  };
 
   return (
-    <div
-      className={styles.trackColorChanger}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-      }}
-    >
+    <div className={styles.inputContainer}>
       <label htmlFor="tracker-color" className={styles.label}>
         Change Tracker Color
       </label>

@@ -1,4 +1,13 @@
+.main {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 100svh;
+}
+
 .mapsContainer {
   display: flex;
+  align-items: center;
   gap: 20px;
 }
